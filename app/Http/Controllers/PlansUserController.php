@@ -13,7 +13,7 @@ class PlansUserController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/users-plan",
+     *     path="/api/users-plan",
      *     summary="Get a list of user plans",
      *     tags={"PlansUser"},
      *     @OA\Response(
@@ -42,7 +42,7 @@ class PlansUserController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/users-plan",
+     *     path="/api/users-plan",
      *     summary="Create a new user plan",
      *     tags={"PlansUser"},
      *     @OA\RequestBody(
@@ -78,6 +78,12 @@ class PlansUserController extends Controller
     public function store(UsersPlanRequest $request)
     {
         $data = $request->validated();
+        $userPlan = PlansUserModel::find($data['user_id']);
+        if ($userPlan) {
+            return  response()->json([
+                'message' => 'The user has a plan for '. $userPlan->plan->month . ' month'
+            ]);
+        }
         $plan = PlansUserModel::create([
             'plan_id' => $data['plan_id'],
             'user_id' => $data['user_id'],
@@ -89,7 +95,7 @@ class PlansUserController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/users-plan/{id}",
+     *     path="/api/users-plan/{id}",
      *     summary="Get a specific user plan",
      *     tags={"PlansUser"},
      *     @OA\Parameter(
@@ -121,14 +127,14 @@ class PlansUserController extends Controller
     {
         $plan = PlansUserModel::find($id);
         if (is_null($plan)) {
-            return response()->json('Plan not found', 404);
+            return response()->json(['message'=>'Plan not found'], 404);
         }
         return new PlansUserResource($plan);
     }
 
     /**
      * @OA\Put(
-     *     path="/users-plan/{id}",
+     *     path="/api/users-plan/{id}",
      *     summary="Update a user plan",
      *     tags={"PlansUser"},
      *     @OA\Parameter(
@@ -184,7 +190,7 @@ class PlansUserController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/users-plan/{id}",
+     *     path="/api/users-plan/{id}",
      *     summary="Delete a user plan",
      *     tags={"PlansUser"},
      *     @OA\Parameter(
@@ -219,9 +225,9 @@ class PlansUserController extends Controller
     {
         $plan = PlansUserModel::find($id);
         if (is_null($plan)) {
-            return response()->json('Plan not found', 404);
+            return response()->json(['message'=>'Plan not found'], 404);
         }
         $plan->delete();
-        return response()->json(['message', 'Plan deleted successfully']);
+        return response()->json(['message' => 'Plan deleted successfully']);
     }
 }

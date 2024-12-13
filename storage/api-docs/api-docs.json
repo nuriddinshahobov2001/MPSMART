@@ -5,13 +5,13 @@
         "version": "0.1.1"
     },
     "paths": {
-        "/register": {
+        "/api/register": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Register a new user",
-                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "operationId": "8a56853624e025573120a09a4c75d468",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -76,13 +76,13 @@
                 }
             }
         },
-        "/login": {
+        "/api/login": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Log in a user",
-                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -165,13 +165,13 @@
                 }
             }
         },
-        "/verify-code": {
+        "/api/verify-code": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Verify the user's verification code",
-                "operationId": "36e8526061d7fbb6685ffbde9fa9e581",
+                "operationId": "21547f302608ff14a11784724a0e6ee7",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -246,13 +246,13 @@
                 }
             }
         },
-        "/users-plan": {
+        "/api/users-plan": {
             "get": {
                 "tags": [
                     "PlansUser"
                 ],
                 "summary": "Get a list of user plans",
-                "operationId": "ace2d7ceb4b8e937adf59cfdc1a0b16a",
+                "operationId": "73437c678f46f6870fe699cc3440e9f4",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -280,7 +280,7 @@
                     "PlansUser"
                 ],
                 "summary": "Create a new user plan",
-                "operationId": "726f33c709e9fde43e962fae1645c5dd",
+                "operationId": "878b1480679cdb199fef5c93e2f3e645",
                 "requestBody": {
                     "description": "Data to create a new user plan",
                     "required": true,
@@ -341,13 +341,13 @@
                 }
             }
         },
-        "/users-plan/{id}": {
+        "/api/users-plan/{id}": {
             "get": {
                 "tags": [
                     "PlansUser"
                 ],
                 "summary": "Get a specific user plan",
-                "operationId": "72be375c71a13133de87e874cac3ad60",
+                "operationId": "51e35749e3d7e6d82e3c623e030f2bc3",
                 "parameters": [
                     {
                         "name": "id",
@@ -384,7 +384,7 @@
                     "PlansUser"
                 ],
                 "summary": "Update a user plan",
-                "operationId": "33a8015d1581f048ef0cf19e53094e3f",
+                "operationId": "fd8a71adce78dc24df7dfd040417bff3",
                 "parameters": [
                     {
                         "name": "id",
@@ -452,7 +452,7 @@
                     "PlansUser"
                 ],
                 "summary": "Delete a user plan",
-                "operationId": "a7e54c4d66ae517338762cb53fc17e29",
+                "operationId": "573901c60e293a43bf2bc83fff67b330",
                 "parameters": [
                     {
                         "name": "id",
@@ -491,13 +491,13 @@
                 }
             }
         },
-        "/subscribe-plans": {
+        "/api/subscribe-plans": {
             "get": {
                 "tags": [
                     "Subscribe Plans"
                 ],
                 "summary": "Get list of subscription plans",
-                "operationId": "0bde855a95bb9a7506622e5793b149f1",
+                "operationId": "9d28f9bde22e6b168a8fcb23fa243a39",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -540,7 +540,7 @@
                     "Subscribe Plans"
                 ],
                 "summary": "Create a new subscription plan",
-                "operationId": "4982195c05a5d4185f5667cc12a8d642",
+                "operationId": "71aa781ad53c0c9eaaf4adb75766238e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -621,13 +621,13 @@
                 ]
             }
         },
-        "/subscribe-plans/{id}": {
+        "/api/subscribe-plans/{id}": {
             "get": {
                 "tags": [
                     "Subscribe Plans"
                 ],
                 "summary": "Get details of a specific subscription plan",
-                "operationId": "d1a2580a7a7698c72602a4a060e4994c",
+                "operationId": "70b70eacc846efa6231ff6d9b568c357",
                 "parameters": [
                     {
                         "name": "id",
@@ -695,7 +695,7 @@
                     "Subscribe Plans"
                 ],
                 "summary": "Update an existing subscription plan",
-                "operationId": "01bdcece94a3bdd7ffc39b78e97dfaa4",
+                "operationId": "5864900316f37e54c42b6789919e1d04",
                 "parameters": [
                     {
                         "name": "id",
@@ -803,6 +803,52 @@
                     }
                 ]
             }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retrieve a list of all users",
+                "description": "Returns a list of all registered users",
+                "operationId": "getUsersList",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserResource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -867,6 +913,33 @@
                     }
                 },
                 "type": "object"
+            },
+            "UserResource": {
+                "title": "User",
+                "description": "Модель данных пользователя",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+123456789"
+                    },
+                    "plan": {
+                        "$ref": "#/components/schemas/SubscribePlansResource"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-12-13T12:34:56Z"
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {
@@ -890,6 +963,10 @@
         {
             "name": "Subscribe Plans",
             "description": "Subscribe Plans"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

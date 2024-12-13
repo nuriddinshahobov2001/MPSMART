@@ -30,6 +30,7 @@ class SubscribePlansResource extends JsonResource
             'month' => $this->month,
             'price' => $this->price,
             'description' => ($this->description === "(NULL)") ? null :$this->description,
+            'created_at' => $this->created_at,
         ];
     }
 }

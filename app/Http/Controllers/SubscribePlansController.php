@@ -11,7 +11,7 @@ class SubscribePlansController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/subscribe-plans",
+     *     path="/api/subscribe-plans",
      *     summary="Get list of subscription plans",
      *     tags={"Subscribe Plans"},
      *     @OA\Response(
@@ -41,7 +41,7 @@ class SubscribePlansController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/subscribe-plans",
+     *     path="/api/subscribe-plans",
      *     summary="Create a new subscription plan",
      *     tags={"Subscribe Plans"},
      *     @OA\RequestBody(
@@ -92,7 +92,7 @@ class SubscribePlansController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/subscribe-plans/{id}",
+     *     path="/api/subscribe-plans/{id}",
      *     summary="Get details of a specific subscription plan",
      *     tags={"Subscribe Plans"},
      *     @OA\Parameter(
@@ -138,7 +138,7 @@ class SubscribePlansController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/subscribe-plans/{id}",
+     *     path="/api/subscribe-plans/{id}",
      *     summary="Update an existing subscription plan",
      *     tags={"Subscribe Plans"},
      *     @OA\Parameter(

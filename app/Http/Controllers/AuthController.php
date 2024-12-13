@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/register",
+     *     path="/api/register",
      *     summary="Register a new user",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
@@ -70,7 +70,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/login",
+     *     path="/api/login",
      *     summary="Log in a user",
      *     tags={"Authentication"},
      *     @OA\RequestBody(
@@ -134,7 +134,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/verify-code",
+     *     path="/api/verify-code",
      *     summary="Verify the user's verification code",
      *     tags={"Authentication"},
      *     @OA\RequestBody(

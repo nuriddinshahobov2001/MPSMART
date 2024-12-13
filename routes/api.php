@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlansUserController;
 use App\Http\Controllers\SubscribePlansController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -27,4 +28,7 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('/{id}', [PlansUserController::class, 'destroy']);
     });
 
+    Route::prefix('/users')->group(function () {
+        Route::get('/', [UsersController::class, 'index']);
+    });
 });
