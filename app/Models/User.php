@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+
     public function getJWTIdentifier()
     {
         return $this->getKey(); // Возвращает уникальный идентификатор, обычно поле `id`
@@ -32,5 +33,21 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function plans()
+    {
+        return $this->hasMany(PlansUserModel::class, 'user_id', 'id');
+    }
+    public function plan()
+    {
+        return $this->hasOneThrough(
+            SubscribePlansModel::class,
+            PlansUserModel::class,
+            'user_id', // Foreign key on PlansUserModel table
+            'id',      // Foreign key on SubscribePlansModel table
+            'id',      // Local key on User table
+            'plan_id'  // Local key on PlansUserModel table
+        );
     }
 }
