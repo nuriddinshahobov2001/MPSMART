@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\RoleModel;
+use App\Models\RoleUserModel;
+use App\Models\User;
+use Couchbase\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $user = User::create([
+            'name' => 'admin',
+            'phone' => '+992000207747'
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $role = RoleModel::create(['name' => 'super-admin']);
+        $role2 = RoleModel::create(['name' => 'user']);
+        RoleUserModel::create([
+            'user_id' => $user->id,
+            'role_id' => $role->id
+        ]);
     }
 }

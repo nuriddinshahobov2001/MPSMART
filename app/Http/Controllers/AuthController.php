@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UsersResource;
+use App\Models\RoleUserModel;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,10 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'verification_code' => $code,
         ]);
-
+        RoleUserModel::create([
+            'user_id' => $user->id,
+            'role_id' => 2,
+        ]);
         // Отправка кода пользователю (здесь должна быть интеграция с SMS-сервисом)
         // sendSms($request->phone, $code);
 
