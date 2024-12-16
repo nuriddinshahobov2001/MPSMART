@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UsersResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,7 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="phone", type="string", example="+1234567890"),
-     *             @OA\Property(property="name", type="string", example="John Doe"),
-     *             @OA\Property(property="password", type="string", example="password123")
+     *             @OA\Property(property="name", type="string", example="John Doe")
      *         )
      *     ),
      *     @OA\Response(
@@ -47,7 +47,6 @@ class AuthController extends Controller
         $request->validate([
             'phone' => 'required|unique:users',
             'name' => 'required',
-            'password' => 'required',
         ]);
 
         $code = rand(100000, 999999); // Генерация кода подтверждения
@@ -55,7 +54,6 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'phone' => $request->phone,
-            'password' => Hash::make($request->password),
             'verification_code' => $code,
         ]);
 
@@ -64,6 +62,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Code sent to your phone.',
+            'user' => new UsersResource($user),
             'code' => $code,
         ]);
     }

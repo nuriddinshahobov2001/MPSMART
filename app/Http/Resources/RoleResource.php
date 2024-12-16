@@ -8,10 +8,30 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class RoleResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * @OA\Schema(
+     *     schema="RoleResource",
+     *     type="object",
+     *     title="Role Resource",
+     *     description="Role representation",
+     *     @OA\Property(
+     *         property="id",
+     *         type="integer",
+     *         description="Role ID"
+     *     ),
+     *     @OA\Property(
+     *         property="name",
+     *         type="string",
+     *         description="Role name"
+     *     ),
+     *     @OA\Property(
+     *         property="created_at",
+     *         type="string",
+     *         format="date",
+     *         description="Creation date in d-m-Y format"
+     *     )
+     * )
      */
+
     public function toArray(Request $request): array
     {
         return [
