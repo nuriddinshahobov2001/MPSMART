@@ -18,7 +18,15 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'verification_code'
     ];
-
+    public function roles()
+    {
+        return $this->belongsToMany(RoleModel::class, 'role_user_models', 'user_id', 'role_id');
+    }
+    public function hasRole($role)
+    {
+        // Проверяем, есть ли у пользователя указанная роль
+        return $this->roles->contains('name', $role);
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey(); // Возвращает уникальный идентификатор, обычно поле `id`

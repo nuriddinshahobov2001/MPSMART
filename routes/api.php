@@ -12,7 +12,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('verify-code', [AuthController::class, 'verifyCode']);
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api', 'role:super-admin'])->group(function () {
 
     Route::prefix('/subscribe-plans')->group(function () {
         Route::get('/', [SubscribePlansController::class, 'index']);
