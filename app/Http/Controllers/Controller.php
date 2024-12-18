@@ -7,7 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 /**
- * @OA\Info(title="API documentation ikkino", version="0.1.1")
+ * @OA\Info(title="API documentation", version="0.1.1")
  */
 class Controller extends BaseController
 {
