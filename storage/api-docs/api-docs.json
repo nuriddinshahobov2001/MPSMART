@@ -1072,6 +1072,447 @@
                 }
             }
         },
+        "/api/stores": {
+            "get": {
+                "tags": [
+                    "Stores"
+                ],
+                "summary": "Retrieve a list of all stores",
+                "operationId": "789854b8f9730d47f1ba52ca5e610238",
+                "responses": {
+                    "200": {
+                        "description": "List of stores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StoreResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Stores"
+                ],
+                "summary": "Create a new store",
+                "operationId": "5562ee6fb25788924172167093719fe9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "New Store"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Store successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stores/{id}": {
+            "get": {
+                "tags": [
+                    "Stores"
+                ],
+                "summary": "Retrieve a store by ID",
+                "operationId": "cd24cde4c43f6c4aeb2ed9725fca9624",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Store data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Stores"
+                ],
+                "summary": "Update a store by ID",
+                "operationId": "88ff3f89a8f75ba1778135a219a7df23",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Updated Store Name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Store successfully updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Stores"
+                ],
+                "summary": "Delete a store by ID",
+                "operationId": "93650469eaff668e6c504e674efdc02a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Store successfully deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found"
+                    }
+                }
+            }
+        },
+        "/api/store-users": {
+            "get": {
+                "tags": [
+                    "Store Users"
+                ],
+                "summary": "Get a list of all store users",
+                "operationId": "d0473dafaea0770ddfbbdf5ed13a4d7f",
+                "responses": {
+                    "200": {
+                        "description": "A list of store users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/StoreUsersResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Store Users"
+                ],
+                "summary": "Create a new store user",
+                "operationId": "6a68a0f17bb491d84e9602780f8e5614",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "api_key",
+                                    "store_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Name of the store user",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "api_key": {
+                                        "description": "API key for the store user",
+                                        "type": "string",
+                                        "example": "abc123xyz"
+                                    },
+                                    "store_id": {
+                                        "description": "ID of the associated store",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Store user created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreUsersResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/store-users/{id}": {
+            "get": {
+                "tags": [
+                    "Store Users"
+                ],
+                "summary": "Retrieve a store user by ID",
+                "operationId": "de6583b3f381cb75c76f962e3cf0f616",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Store user data retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreUsersResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Store Users"
+                ],
+                "summary": "Update an existing store user",
+                "operationId": "1a3101cefbf8012bcfbc8e2b09aa94f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store user to update",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "api_key",
+                                    "store_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Updated Store User"
+                                    },
+                                    "api_key": {
+                                        "type": "string",
+                                        "example": "newApiKey123"
+                                    },
+                                    "store_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Store user updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreUsersResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Store Users"
+                ],
+                "summary": "Delete a store user by ID",
+                "operationId": "7c1a152420b1b93933a66a9f3a3aa289",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store user to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Store user deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/subscribe-plans": {
             "get": {
                 "tags": [
@@ -1501,6 +1942,54 @@
                 },
                 "type": "object"
             },
+            "StoreResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Example Store"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreUsersResource": {
+                "title": "Store Users Resource",
+                "description": "Resource representation of a store user",
+                "properties": {
+                    "id": {
+                        "description": "ID of the store user",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the store user",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "api_key": {
+                        "description": "API key for the store user",
+                        "type": "string",
+                        "example": "abc123xyz"
+                    },
+                    "store_type": {
+                        "$ref": "#/components/schemas/StoreResource"
+                    },
+                    "created_at": {
+                        "description": "Creation date of the store user",
+                        "type": "string",
+                        "format": "date",
+                        "example": "17-12-2024"
+                    }
+                },
+                "type": "object"
+            },
             "SubscribePlansResource": {
                 "title": "Subscribe Plan Resource",
                 "description": "Representation of a single subscription plan",
@@ -1592,6 +2081,14 @@
         {
             "name": "Role Users",
             "description": "Role Users"
+        },
+        {
+            "name": "Stores",
+            "description": "Stores"
+        },
+        {
+            "name": "Store Users",
+            "description": "Store Users"
         },
         {
             "name": "Subscribe Plans",
