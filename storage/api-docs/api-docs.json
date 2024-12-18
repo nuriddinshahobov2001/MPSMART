@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API documentation ikkino",
+        "title": "API documentation",
         "version": "0.1.1"
     },
     "paths": {
