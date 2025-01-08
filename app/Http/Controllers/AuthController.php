@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -22,7 +23,8 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="phone", type="string", example="+1234567890"),
-     *             @OA\Property(property="name", type="string", example="John Doe")
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="password", type="string", example="password123")
      *         )
      *     ),
      *     @OA\Response(
@@ -30,7 +32,8 @@ class AuthController extends Controller
      *         description="Successful registration",
      *         @OA\JsonContent(
      *             @OA\Property(property="message", type="string", example="Code sent to your phone."),
-     *             @OA\Property(property="code", type="integer", example=123456)
+     *             @OA\Property(property="code", type="integer", example=123456),
+     *             @OA\Property(property="user", type="object", ref="#/components/schemas/UserResource")
      *         )
      *     ),
      *     @OA\Response(
@@ -43,20 +46,24 @@ class AuthController extends Controller
      * )
      */
 
+
     public function register(Request $request)
     {
         $request->validate([
             'phone' => 'required|unique:users',
             'name' => 'required',
+            'password' => 'required',
         ]);
 
-        $code = rand(100000, 999999); // Генерация кода подтверждения
+        $code = rand(100000, 999999);
 
         $user = User::create([
             'name' => $request->name,
             'phone' => $request->phone,
+            'password' => Hash::make($request->password),
             'verification_code' => $code,
         ]);
+
         RoleUserModel::create([
             'user_id' => $user->id,
             'role_id' => 2,
@@ -67,7 +74,6 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Code sent to your phone.',
             'user' => new UsersResource($user),
-            'code' => $code,
         ]);
     }
 
@@ -80,7 +86,7 @@ class AuthController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="phone", type="string", example="+1234567890", description="Phone number of the user"),
-     *             @OA\Property(property="verification_code", type="string", example="123456", description="Verification code sent to the user's phone")
+     *             @OA\Property(property="password", type="string", example="password123", description="Password of the user")
      *         )
      *     ),
      *     @OA\Response(
@@ -109,29 +115,30 @@ class AuthController extends Controller
      * )
      */
 
+
     public function login(Request $request)
     {
         $request->validate([
             'phone' => 'required',
-            'verification_code' => 'required',
+            'password' => 'required',
         ]);
 
-        $user = User::where('phone', $request->phone)
-            ->where('verification_code', $request->verification_code)
-            ->first();
+        $user = User::where('phone', $request->phone)->first();
 
-        if (!$user) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
+        // Если пароль верный, создаём токен
         $token = JWTAuth::fromUser($user);
+
+        // Очистка verification_code, если необходимо
         $user->verification_code = null;
         $user->save();
 
         return response()->json([
             'token' => $token,
-            'name' => $user->name,
-            'phone' => $user->phone,
+            'user' => new UsersResource($user),
         ]);
     }
 
@@ -183,6 +190,8 @@ class AuthController extends Controller
             ->first();
 
         if ($user) {
+            $user->verification_code = null;
+            $user->save();
             return response()->json(['message' => 'Code verified.']);
         }
 

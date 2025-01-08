@@ -28,7 +28,7 @@ class UsersResource extends JsonResource
             'id' => $this->id,
             'name'  => $this->name,
             'phone' => $this->phone,
-            'role' => RoleResource::collection($this->roles),
+            'role' => $this->roles->isNotEmpty() ? $this->roles->first()->name : null,
             'plan' => new SubscribePlansResource($this->plan) ,
             'created_at' => $this->created_at->format('d-m-Y'),
         ];
