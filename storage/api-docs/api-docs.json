@@ -25,6 +25,10 @@
                                     "name": {
                                         "type": "string",
                                         "example": "John Doe"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
                                     }
                                 },
                                 "type": "object"
@@ -46,6 +50,9 @@
                                         "code": {
                                             "type": "integer",
                                             "example": 123456
+                                        },
+                                        "user": {
+                                            "$ref": "#/components/schemas/UserResource"
                                         }
                                     },
                                     "type": "object"
@@ -90,10 +97,10 @@
                                         "type": "string",
                                         "example": "+1234567890"
                                     },
-                                    "verification_code": {
-                                        "description": "Verification code sent to the user's phone",
+                                    "password": {
+                                        "description": "Password of the user",
                                         "type": "string",
-                                        "example": "123456"
+                                        "example": "password123"
                                     }
                                 },
                                 "type": "object"
