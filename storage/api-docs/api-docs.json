@@ -207,6 +207,10 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Code verified."
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "sdf-sd-rt-we-gf-dfafasdfew-wer-qwr-345"
                                         }
                                     },
                                     "type": "object"

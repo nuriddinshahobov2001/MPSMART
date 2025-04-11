@@ -73,6 +73,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Code sent to your phone.',
+            'code' => $code,
             'user' => new UsersResource($user),
         ]);
     }
@@ -158,7 +159,8 @@ class AuthController extends Controller
      *         response=200,
      *         description="Code verified successfully",
      *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Code verified.")
+     *             @OA\Property(property="message", type="string", example="Code verified."),
+     *             @OA\Property(property="token", type="string", example="sdf-sd-rt-we-gf-dfafasdfew-wer-qwr-345")
      *         )
      *     ),
      *     @OA\Response(
@@ -190,9 +192,11 @@ class AuthController extends Controller
             ->first();
 
         if ($user) {
+            // Если пароль верный, создаём токен
+            $token = JWTAuth::fromUser($user);
             $user->verification_code = null;
             $user->save();
-            return response()->json(['message' => 'Code verified.']);
+            return response()->json(['message' => 'Code verified.', 'token' => $token], 200);
         }
 
         return response()->json(['error' => 'Invalid code'], 401);
