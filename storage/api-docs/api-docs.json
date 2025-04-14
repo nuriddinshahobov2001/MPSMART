@@ -1308,7 +1308,10 @@
                                 "required": [
                                     "name",
                                     "api_key",
-                                    "store_id"
+                                    "store_id",
+                                    "client_id",
+                                    "nalog_type",
+                                    "nalog_percent"
                                 ],
                                 "properties": {
                                     "name": {
@@ -1325,6 +1328,21 @@
                                         "description": "ID of the associated store",
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "client_id": {
+                                        "description": "ID of the associated client",
+                                        "type": "string",
+                                        "example": "casdadadasdqw"
+                                    },
+                                    "nalog_type": {
+                                        "description": "Nalog type",
+                                        "type": "string",
+                                        "example": "Asdfbg"
+                                    },
+                                    "nalog_percent": {
+                                        "description": "Nalog percent",
+                                        "type": "string",
+                                        "example": "2.4"
                                     }
                                 },
                                 "type": "object"

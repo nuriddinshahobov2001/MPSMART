@@ -14,7 +14,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('verify-code', [AuthController::class, 'verifyCode']);
 
-Route::middleware(['auth:api', 'role:super-admin'])->group(function () {
+Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::apiResource('/subscribe-plans', SubscribePlansController::class, ['only' => ['index', 'store', 'show', 'update']]);
     Route::apiResource('/users-plan', PlansUserController::class);
     Route::apiResource('/users', UsersController::class, ['only' => ['index']]);

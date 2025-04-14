@@ -27,6 +27,9 @@ class StoreUsersRequest extends FormRequest
             'name' => 'required',
             'api_key' => 'required',
             'store_id' => 'required|exists:store_models,id',
+            'client_id' => 'nullable',
+            'nalog_type' => 'nullable',
+            'nalog_percent' => 'nullable'
         ];
     }
 

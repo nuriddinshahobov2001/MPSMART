@@ -43,7 +43,7 @@ class StoreUsersController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "api_key", "store_id"},
+     *             required={"name", "api_key", "store_id", "client_id", "nalog_type", "nalog_percent"},
      *             @OA\Property(
      *                 property="name",
      *                 type="string",
@@ -61,7 +61,25 @@ class StoreUsersController extends Controller
      *                 type="integer",
      *                 example=1,
      *                 description="ID of the associated store"
-     *             )
+     *             ),
+     *             @OA\Property(
+     *                 property="client_id",
+     *                 type="string",
+     *                 example="casdadadasdqw",
+     *                 description="ID of the associated client"
+     *             ),
+     *             @OA\Property(
+     *                 property="nalog_type",
+     *                 type="string",
+     *                 example="Asdfbg",
+     *                 description="Nalog type"
+     *             ),
+     *             @OA\Property(
+     *                 property="nalog_percent",
+     *                 type="string",
+     *                 example="2.4",
+     *                 description="Nalog percent"
+     *             ),
      *         )
      *     ),
      *     @OA\Response(

@@ -52,6 +52,9 @@ class StoreUsersResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'api_key' => $this->api_key,
+            'client_id' => $this->client_id,
+            'nalog_type' => $this->nalog_type,
+            'nalog_percent' => $this->nalog_percent,
             'store_type' => new StoreResource($this->store),
             'created_at' => $this->created_at->format('d-m-Y'),
         ];
