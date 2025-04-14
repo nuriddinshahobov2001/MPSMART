@@ -157,10 +157,13 @@ class StoreUsersController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name", "api_key", "store_id"},
+     *             required={"name", "api_key", "store_id","client_id", "nalog_type", "nalog_percent"},
      *             @OA\Property(property="name", type="string", example="Updated Store User"),
      *             @OA\Property(property="api_key", type="string", example="newApiKey123"),
-     *             @OA\Property(property="store_id", type="integer", example=1)
+     *             @OA\Property(property="store_id", type="integer", example=1),
+     *             @OA\Property(property="client_id", type="string", example="asdfasdf"),
+     *             @OA\Property(property="nalog_type", type="string", example="asdasdasdas"),
+     *             @OA\Property(property="nalog_percent", type="string", example="2.5")
      *         )
      *     ),
      *     @OA\Response(
