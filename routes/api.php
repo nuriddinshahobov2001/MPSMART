@@ -24,7 +24,7 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
 });
 
 
-//Route::middleware(['auth:api', 'role:user'])->group(function () {
-//    Route::apiResource('/stores', StoreController::class);
-//    Route::apiResource('/store-users', StoreUsersController::class);
-//});
+Route::middleware(['auth:api', 'role:user'])->group(function () {
+    Route::apiResource('/stores', StoreController::class);
+    Route::apiResource('/store-users', StoreUsersController::class);
+});
