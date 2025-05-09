@@ -101,6 +101,10 @@ class StoreUsersController extends Controller
             'name' => $data['name'],
             'api_key' => $data['api_key'],
             'store_id' => $data['store_id'],
+            'client_id' => $data['client_id'],
+            'nalog_type' => $data['nalog_type'],
+            'nalog_percent' => $data['nalog_percent'],
+
         ]);
         return new StoreUsersResource($store);
     }
@@ -191,6 +195,9 @@ class StoreUsersController extends Controller
         $store->name = $data['name'];
         $store->api_key = $data['api_key'];
         $store->store_id = $data['store_id'];
+        $store->client_id = $data['client_id'];
+        $store->nalog_type = $data['nalog_type'];
+        $store->nalog_percent = $data['nalog_percent'];
         $store->save();
         return new StoreUsersResource($store);
     }
