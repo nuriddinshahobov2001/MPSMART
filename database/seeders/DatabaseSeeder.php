@@ -6,8 +6,9 @@ namespace Database\Seeders;
 
 use App\Models\RoleModel;
 use App\Models\RoleUserModel;
+use App\Models\StoreModel;
+use App\Models\SubscribePlansModel;
 use App\Models\User;
-use Couchbase\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,6 +40,27 @@ class DatabaseSeeder extends Seeder
         RoleUserModel::create([
             'user_id' => $user2->id,
             'role_id' => $role2->id
+        ]);
+        StoreModel::create(['name' => 'Ozon']);
+        StoreModel::create(['name' => 'Wildberries']);
+        StoreModel::create(['name' => 'Yandesx Market']);
+        SubscribePlansModel::create([
+            'title' => '1 месяц',
+            'description' => '1 месяц 1 месяц 1 месяц 1 месяц',
+            'price' => 10,
+            'month' => 1,
+        ]);
+        SubscribePlansModel::create([
+            'title' => '4 месяц',
+            'description' => '4 месяц 4 месяц 4 месяц 4 месяц',
+            'price' => 30,
+            'month' => 4,
+        ]);
+        SubscribePlansModel::create([
+            'title' => '12 месяц',
+            'description' => '12 месяц 12 месяц 12 месяц 12 месяц',
+            'price' => 100,
+            'month' => 12,
         ]);
     }
 }
