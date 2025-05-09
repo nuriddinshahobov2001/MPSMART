@@ -19,12 +19,12 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::apiResource('/users-plan', PlansUserController::class);
     Route::apiResource('/users', UsersController::class, ['only' => ['index']]);
     Route::apiResource('/role-users', RoleUsersController::class, ['only' => ['index', 'store', 'update', 'show']]);
-    Route::apiResource('/stores', StoreController::class);
-    Route::apiResource('/store-users', StoreUsersController::class);
+    Route::apiResource('/stores', StoreController::class, ['only' => ['index', 'show', 'store', 'update']]);
+    Route::apiResource('/store-users', StoreUsersController::class, ['only' => ['index', 'show', 'store', 'update','destroy']]);
 });
 
 
 Route::middleware(['auth:api', 'role:user'])->group(function () {
     Route::apiResource('/stores', StoreController::class, ['only' => ['index', 'show']]);
-    Route::apiResource('/store-users', StoreUsersController::class, ['only' => ['index', 'show', 'store', 'update']]);
+    Route::apiResource('/store-users', StoreUsersController::class, ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
 });
